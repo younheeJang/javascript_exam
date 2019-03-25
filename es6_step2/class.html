@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person1(name) {
+            this.name = name
+        }
+
+
+        class Person2 {
+            constructor(name) {
+                this.name = name
+            }
+            getName() {
+                return this.name
+            }
+            static isPerson(obj) {
+                return obj instanceof this
+            }
+        }
+
+        const p2 = new Person2('curious')
+        console.log(p2.getName)
+        console.log(Person2.isPerson(p2))
+
+        class Person {}
+
+        const a = function aa() {}
+        const Person20 = class Person22 {}
+
+        const aaa = function() {}
+        let Person3 = class {}
+
+        class A {
+            a() {}
+            b() {}
+            static c() {}
+        }
+        for (let p in A.prototype) {
+            console.log(p)
+        }
+
+        let AA = class {
+            constructor() {
+                AA = 'AA'
+            }
+        }
+        const bb = new AA()
+        console.log(AA)
+
+        class C {
+            constructor() {
+                C: 'C'
+            }
+        }
+
+        const instanceG = (classN, ...params) =>
+            new classN(...params)
+
+        class P {
+            constructor(name) {
+                this.name = name
+            }
+            sayN() {
+                console.log(this.name)
+            }
+        }
+        const pp = instanceG(P, 'curious')
+        const ppp = instanceG(class {
+            constructor(name) {
+                this.name = name
+            }
+            sayN() {
+                console.log(this.name)
+            }
+        }, 'curious')
+        pp.sayN()
+        ppp.sayN()
+
+        class Z {}
+        class X extends Z {}
+        class T extends X {}
+        //    class T extends class extends class {} {} {}
+
+        class CustomHTMLElement {
+            constructor(element) {
+                this._element = element
+            }
+            get html() {
+                return this._element.innerHTML = value
+            }
+            set html(value) {
+                this._element.innerHTML = value
+            }
+        }
+        console.log(Object.entries(CustomHTMLElement.prototype))
+
+        console.log(Object.getOwnPropertyDescriptor(CustomHTMLElement.prototype, 'html'))
+
+        const me = 'sayN'
+        const fullN = 'fullN'
+        class PP {
+            constructor(name) {
+                    this.name = name
+                }
+                [me]() {
+                    console.log(this.name)
+                }
+            get[fullN + 111]() {
+                return this.name + 'cu'
+            }
+        }
+        const vv = new PP('CURIOUS')
+        vv.sayN()
+        console.log(vv.fullN111)
+        const gen = function*() {
+            yield 1;
+            yield 2;
+        }
+        const g = gen();
+        g.next()
+        const objo = {
+            * gene() {}
+        }
+        class Y { *
+            gene() {}
+        }
+
+        class Products {
+            constructor() {
+                this.items = new Set()
+            }
+            addItem(name) {
+                    this.items.add(name)
+                }
+                [Symbol.iterator]() {
+                    let count = 0
+                    const items = [...this.items]
+                    return {
+                        next() {
+                            return {
+                                done: count >= items.length,
+                                value: items[count++]
+                            }
+                        }
+                    }
+                }
+        }
+        const pro1 = new Products();
+        pro1.addItem('curious')
+    </script>
+</body>
+
+</html>

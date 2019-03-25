@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        const add = (a, b) => a + b;
+        const take = curry((l, iter) => {
+            let res = [];
+            for (const a of iter) {
+                res.push(a);
+                if (res.length == l) {
+                    return res;
+                }
+            }
+            return res;
+        });
+        go(
+            range(10),
+            take(5),
+            reduce(add),
+            log
+        );
+        go(
+            L.range(10),
+            take(5),
+            reduce(add),
+            log
+        );
+        log(range(100));
+        log(take(10, L.range(100)));
+    </script>
+</body>
+
+</html>

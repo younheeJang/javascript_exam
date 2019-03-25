@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const log = console.log
+    </script>
+    <script>
+        const products = [{
+            name: '반팔티',
+            price: 15000
+        }, {
+            name: '긴팔티',
+            price: 20000
+        }, {
+            name: '핸드폰케이스',
+            price: 80000
+        }, {
+            name: '후드티',
+            price: 30000
+        }, {
+            name: '배지',
+            price: 25000
+        }];
+        let names = [];
+        for (const p of products) {
+            names.push(p.name);
+        }
+        log(names)
+
+        const map = (f, iter) => {
+            let res = [];
+            for (const a of iter) {
+                res.push(f(a));
+            }
+            return res;
+        }
+        log(map(p => p.name, products))
+
+        log(
+            map(el => el.nodeName,
+                document.querySelectorAll('*'))
+        )
+
+        function* gen() {
+            yield 2;
+            if (false) yield 3;
+            yield 4;
+        }
+        log(map(a => a * a, gen()))
+
+        let m = new Map();
+        m.set('a', 10);
+        m.set('b', 20);
+        const it = m[Symbol.iterator]();
+        log(new Map(map(([k, v]) => [k, v * 2], m)));
+    </script>
+</body>
+
+</html>

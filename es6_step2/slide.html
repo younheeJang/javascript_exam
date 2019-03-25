@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slide_container {
+            width: 100px;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+        .slide_item:nth-child(5n+1) {
+            background-color: #fffa;
+        }
+        
+        .slide_item:nth-child(5n+2) {
+            background-color: snow;
+        }
+        
+        .slide_item:nth-child(5n+3) {
+            background-color: slategray;
+        }
+        
+        .slide_item:nth-child(5n+4) {
+            background-color: slateblue;
+        }
+        
+        .slide_item:nth-child(5n) {
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <script>
+        const buildSlide = ($target, slideData) => {
+            //document.body.innerHTML = '<div></div>'
+            // const $div = document.getElementsByTagName('div')[0]
+            const frag = document.createDocumentFragment()
+            const $slide = document.createElement('div')
+            const $container = document.createElement('ul')
+            $slide.className = 'slide'
+            $container.className = 'slide_container'
+                // const slideData = [1, 2, 3, 4, 5]
+            let currentIndex = 0
+            $container.style.width = slideData.length * 100 + 'px'
+            slideData.forEach((v, i) => {
+                const $li = document.createElement('li')
+                $li.className = 'slide_item'
+                $li.innerText = v
+                $container.appendChild($li)
+            })
+            $slide.appendChild($container)
+            $slide.addEventListener('click', e => {
+                e.preventDefault()
+                currentIndex = (currentIndex + 1) % slideData.length
+                $container.style.left = -100 * currentIndex + 'px'
+            })
+            frag.appendChild($slide)
+            $target.appendChild(frag)
+        }
+
+        buildSlide(document.getElementById('a'), [1, 2, 3, 4, 5])
+        buildSlide(document.getElementById('b'), ['a', 'b', 'c', 'd', 'e'])
+    </script>
+</body>
+
+</html>

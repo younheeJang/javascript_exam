@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const iter = {
+            items: [10, 20, 30],
+            count: 0,
+            next() {
+                const done = this.count >= this.items.length
+                return {
+                    done,
+                    value: !done ? this.items[this.count++] : undefined
+                }
+            }
+        }
+        const obj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            [Symbol.iterator]() {
+                return iter
+            }
+        }
+
+        const iter2 = {
+            val: 0,
+            next() {
+                const isDone = ++this.val >= 5
+                return {
+                    done: isDone,
+                    value: !isDone ? this.val : undefined
+                }
+            }
+        }
+
+        const arr = [1, 2]
+        const arrIterator = arr[Symbol.iterator]()
+        const isIterable = target => !!target[Symbol.iterator]
+        const createIterator = () => {
+            return {
+                next() {
+                    return {
+                        done: false
+                    }
+                }
+            }
+        }
+        const obj2 = {
+            [Symbol.iterator]: createIterator
+        }
+        const obj3 = {
+            [Symbol.iterator]() {
+                return this
+            },
+            val: 0,
+            next() {
+                return {
+                    done: this.val >= 5,
+                    value: this.val++
+
+                }
+            }
+        }
+
+        const obj4 = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4,
+            [Symbol.iterator]() {
+                let count = 0
+                const items = Object.entries(this)
+                return {
+                    next() {
+                        return {
+                            done: count >= items.length,
+                            value: items[count++]
+                        }
+                    }
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

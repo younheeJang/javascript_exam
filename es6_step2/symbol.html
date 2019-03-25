@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const a = Symbol('a')
+        const b = Symbol('b')
+        const c = b
+        const x = () => {
+            const d = Symbol('d');
+            return {
+                [d]: 10
+            }
+        }
+        const y = x();
+        const v = Reflect.ownKeys(y)
+        const obj = {
+            a: 1
+        }
+        const sb1 = Symbol(obj)
+        const sb2 = Symbol(obj)
+        const NAME = Symbol('name')
+        const GENDER = Symbol('gender')
+        const ui = {
+            [NAME]: 'OI',
+            [GENDER]: 'FEMALE',
+            age: 12
+        }
+        const upi = {
+            [NAME]: 'O2I',
+            [GENDER]: 'FEMALE',
+            age: 127
+        }
+        console.log(ui, upi)
+        const la = {
+            [Symbol('a')]: 1
+        }
+    </script>
+</body>
+
+</html>

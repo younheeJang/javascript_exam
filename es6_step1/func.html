@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/partial.js"></script>
+</head>
+
+<body>
+    <script>
+        const a = [1, 2, 3]
+        a.forEach(function(v, i, arr) {
+            console.log(this[i])
+        }, [10, 11, 12])
+
+        const b = a.map(function(v, i, arr) {
+            console.log(v, i, arr, this)
+            return this[0] + v
+        }, [10])
+        console.log(b)
+        const res = a.reduce(function(p, c, i) {
+            console.log(p, c, i)
+            return p + c
+        })
+        console.log(res)
+        const arr = ['a', 'curious', 'girl']
+        const str = arr.reduce(function(response, item, index, array) {
+            response[item] = item;
+            return response
+        }, {})
+        console.log(str)
+        var aaa = _.range(11)
+        const sum = aaa.reduce((a, c) => a + c);
+    </script>
+</body>
+
+</html>

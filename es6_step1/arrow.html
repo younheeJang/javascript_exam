@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = function() {
+            return new Date()
+        }
+        var a = () => new Date();
+
+        var b = function(a) {
+            return a * a
+        }
+        var b = a => a * a
+
+        var c = function(a, b) {
+            return a + b
+        }
+        var c = (a, b) => a + b
+
+        var d = function(a, b) {
+            console.log(a * b)
+        }
+
+        var d = (a, b) => {
+            console.log(a * b)
+        }
+
+        var e = function(x) {
+            return {
+                x: x
+            }
+        }
+        var e = x => ({
+            x
+        })
+
+        var f = function(a) {
+            return function(b) {
+                return a + b;
+            }
+        }
+
+        var f = function(a) {
+            return function(b) {
+                return a + b;
+            }
+        }
+
+        var f = a =>
+            b =>
+            a + b;
+
+        var b = _ => 10;
+
+        const obj = {
+            a() {
+                console.log(this)
+                const b = () => {
+                    console.log(this)
+                }
+                b()
+            }
+        }
+        obj.a()
+
+        const obj11 = {
+            grades: [80, 90, 99],
+            getTotal: function() {
+                this.total = 0
+                this.grades.forEach(v => {
+                    this.total += v
+                })
+            }
+        }
+        obj11.getTotal()
+        console.log(obj11.total)
+
+        const aaa = () => {
+            console.log(this)
+        }
+
+
+        function sum(...arg) {
+            console.log(this)
+            return arg.reduce((p, c) => p + c);
+        }
+        console.log(sum(1, 2, 3, 4, 5))
+        const sum2 = (...arg) => {
+            console.log(this)
+            return arg.reduce((p, c) => p + c);
+        }
+        console.log(sum2(1, 2, 3, 4, 5))
+        console.log(sum2.call({}, 1, 2, 3, 4, 5))
+
+        const b1 = {
+            name: 'dd',
+            bb() {
+                const bbb = x => {
+                    return this.name;
+                }
+                console.log(bbb());
+            }
+        }
+    </script>
+</body>
+
+</html>

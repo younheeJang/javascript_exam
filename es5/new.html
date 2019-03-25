@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var extendClass = (function() {
+            function bridge() {}
+            return function(p, c) {
+                bridge.prototype = animal.prototype;
+                cat.prototype = new bridge();
+                cat.prototype.constructor = c;
+                cat.prototype.superC = p;
+            }
+        })();
+
+        function animal(sort, age) {
+            this.sort = sort || 'unknown';
+            this.age = age || 'unknown';
+        }
+        animal.prototype.getSort = function() {
+            return this.sort;
+        }
+        animal.prototype.getAge = function() {
+            return this.age;
+        }
+
+        function cat(sort, age, name) {
+            this.superC(name, age);
+            this.name = name || 'unknown';
+        }
+
+        extendClass(animal, cat);
+        var yaong = new cat('cat', 1, 'yaong01');
+        console.log(yaong);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let obj1 = {
+            a: 1
+        }
+        const map = new Map()
+        map.set(obj1, 10)
+        obj1 = null
+        let obj2 = {
+            b: 2
+        }
+
+
+        const keysA = [{
+                a: 1
+            },
+            [1, 2, 3],
+            function() {},
+            Symbol['key'], 45, 'str', false
+        ]
+
+
+        const weakmapVA = (wmap, key, addV) => {
+            wmap.set(key, Object.assign({}, wmap.get(key), addV))
+        }
+
+        const Person = (() => {
+            const privateM = new WeakMap()
+            return class {
+                constructor(n, a) {
+                    privateM.set(this, {
+                        name: n,
+                        age: a
+                    })
+                    console.log(privateM);
+                }
+                set name(n) {
+                    weakmapVA(privateM, this, {
+                        name: n
+                    })
+                }
+                get name() {
+                    return privateM.get(this).name
+                }
+                set age(a) {
+                    weakmapVA(privateM, this, {
+                        age: a
+                    })
+                }
+                get age() {
+                    return privateM.get(this).age
+                }
+            }
+        })()
+        const cu0 = new Person('cu', 20)
+        const cu00 = new Person('cu0', 28)
+            //console.log(cu0.name, cu0.age, cu0)
+    </script>
+</body>
+
+</html>

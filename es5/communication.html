@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <input type="button" onclick="open1()" value="window.open('demo2.html');" />
+        </li>
+        <li>
+            <input type="button" onclick="open2()" value="window.open('demo2.html','_self');" />
+        </li>
+        <li>
+            <input type="button" onclick="open3()" value="window.open('demo2.html','_blank');" />
+        </li>
+        <li>
+            <input type="button" onclick="open4()" value="window.open('demo2.html','_curious');" />
+        </li>
+        <li>
+            <input type="button" onclick="open5()" value="window.open('demo2.html','_curious','width=200,height=200,resizable=yes');" />
+        </li>
+    </ul>
+    <script>
+        function open1() {
+            window.open('demo2.html');
+        }
+
+        function open2() {
+            window.open('demo2.html', '_self');
+        }
+
+        function open3() {
+            window.open('demo2.html', '_blank');
+        }
+
+        function open4() {
+            window.open('demo2.html', '_curious');
+        }
+
+        function open5() {
+            window.open('demo2.html', '_curious', 'width=200, height=200, resizable=yes');
+        }
+    </script>
+
+</body>
+
+</html>

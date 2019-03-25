@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body id="start">
+    <ul>
+        <li class="marked">
+            <a href="./aaa">curious</a></li>
+        <li class="marked">
+            <a href="./aaa">curious</a></li>
+        <li class="marked">
+            <a href="./aaa">curious</a></li>
+        <li id="active">js
+            <ul>
+                <li class="marked">
+                    <a href="./aaa">curious</a></li>
+                <li class="marked">
+                    <a href="./aaa">curious</a></li>
+                <li class="marked">
+                    <a href="./aaa">curious</a></li>
+            </ul>
+        </li>
+    </ul>
+    <script src="lib/jquery.min.js"></script>
+    <script>
+        function traverse(target, callback) {
+
+            var c = target.childNodes;
+            //자식 엘리먼트들을 c에 할당
+
+            if (target.nodeType === Node.ELEMENT_NODE) {
+                callback(target);
+            }
+
+            for (var i = 0; i < c.length; i++) {
+                traverse(c[i], callback);
+            }
+        }
+        traverse(document.getElementById('start'), function(ele) {
+            console.log(ele);
+        });
+    </script>
+</body>
+
+</html>

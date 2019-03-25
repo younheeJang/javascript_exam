@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = (() => {
+            const _privateMember1 = Symbol('private1')
+            const _privateMember2 = Symbol('private1')
+            return {
+                [_privateMember1]: 'cannot accept',
+                [_privateMember2]: 10,
+                publicMember1: 20,
+                publicMember2: 30
+            }
+        })()
+        const a = Symbol.for('curious')
+        const b = Symbol.for('curious')
+        const COMMON3 = Symbol.for('commom')
+        const objj = {
+            [COMMON3]: 'OOO'
+        }
+        const COMMON2 = Symbol.for('commom')
+            //  console.log(obj1[COMMON2])
+        const UNCOMMON = Symbol('uncom')
+        const commonSymbolKey3 = Symbol.keyFor(COMMON3)
+        const commonSymbolKey2 = Symbol.keyFor(COMMON2)
+        const keys = ['add', 'delete']
+        const Constants = {};
+        keys.forEach(v => {
+            Constants[Symbol.for(v)] = v
+        })
+        const set = new Set();
+        const str = 'this . string . seperated . like . this'
+        String.prototype[Symbol.split] = function(string) {
+            let result = ''
+            let residue = string;
+            let index = 0
+            do {
+                index = residue.indexOf(this)
+                console.log(this)
+                if (index <= -1) {
+                    break
+                }
+                result += residue.substr(0, index) + '/'
+                residue = residue.substr(index + this.length)
+            } while (true) {
+                result += residue
+                return result
+            }
+        }
+
+        class Person {
+            constructor(name) {
+                this.name = name
+            }
+        }
+        const cu = new Person('cu')
+        Person.prototype[Symbol.toStringTag] = "PERSON"
+
+        const arr = [4, 5, 6]
+        arr[Symbol.isConcatSpreadable] = false
+        console.log([1, 2, 3].concat(arr))
+    </script>
+</body>
+
+</html>

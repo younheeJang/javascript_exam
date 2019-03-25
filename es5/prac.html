@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/partial.js"></script>
+</head>
+
+<body>
+    <script>
+        var users = [{
+            id: 101,
+            name: 'name'
+        }, {
+            id: 102,
+            name: 'namea'
+        }, {
+            id: 103,
+            name: 'naseg'
+        }, {
+            id: 104,
+            name: 'namesv'
+        }, {
+            id: 105,
+            name: 'nameda'
+        }];
+        var posts = [{
+            id: 201,
+            body: 'content',
+            user_id: 101
+        }, {
+            id: 202,
+            body: '22content',
+            user_id: 102
+        }, {
+            id: 203,
+            body: 'content3',
+            user_id: 103
+        }, {
+            id: 204,
+            body: 'content0',
+            user_id: 102
+        }, {
+            id: 205,
+            body: 'content7',
+            user_id: 101
+        }, ];
+        var comments = [{
+            id: 301,
+            body: 'comment1',
+            user_id: 105,
+            post_id: 201
+        }, {
+            id: 302,
+            body: 'comment10',
+            user_id: 105,
+            post_id: 201
+        }, {
+            id: 303,
+            body: 'comment13',
+            user_id: 104,
+            post_id: 203
+        }, {
+            id: 304,
+            body: 'comment11',
+            user_id: 104,
+            post_id: 203
+        }, {
+            id: 305,
+            body: 'comment19',
+            user_id: 103,
+            post_id: 202
+        }, ];
+
+        console.log();
+
+        function posts_by(attr) {
+            return _.where(posts, attr);
+        }
+
+        var comments_by_posts = _.pipe(
+            _.pluck('id'),
+            function(post_ids) {
+                return _.filter(comments, function(comment) {
+                    return _.contains(post_ids, comment.post_id);
+                })
+            }
+        );
+
+        var f1 = _.pipe(
+            posts_by,
+            comments_by_posts
+        );
+        _.go({
+                user_id: 101
+            },
+            f1, console.log);
+        console.log(f1({
+            user_id: 101
+        }));
+
+        _.go({
+                user_id: 101
+            },
+            posts_by,
+            comments_by_posts,
+
+
+            console.log);
+        var comments_to_user_names = _.map(function(comment) {
+            return _.find(users, function(user) {
+                return user.id == comment.user_id;
+            }).name;
+        })
+        var f2 = _.pipe(
+            f1, comments_to_user_names,
+            _.uniq,
+        );
+        console.log(f2({
+            user_id: 101
+        }));
+
+        var f3 = _.pipe(
+            f1, comments_to_user_names, _.count_by
+        );
+
+        console.log(f3({
+            user_id: 101
+        }));
+        _.go({
+                user_id: 101
+            },
+            posts_by,
+            comments_by_posts,
+            _.map(function(comment) {
+                return _.find(users, function(user) {
+                    return user.id == comment.user_id;
+                }).name;
+            }),
+            _.count_by,
+            console.log);
+
+        _.go(
+            _.where(comments, {
+                user_id: 105
+            }),
+            _.pluck('post_id'),
+            _.uniq,
+            function(post_ids) {
+                return _.filter(posts, function(post) {
+                    return _.contains(post_ids, post.id);
+                })
+            },
+            console.log
+        );
+
+        var users2 = _.index_by(users, 'id');
+        console.log(users2);
+
+        var comments2 = _.go(comments,
+
+            _.map(function(comment) {
+                return _.extend({
+                    user: users2[comment.user_id]
+                }, comment);
+            }),
+            _.group_by('post_id')
+        );
+        console.log(comments2);
+
+        var posts3 = _.go(posts,
+            _.map(function(post) {
+                return _.extend({
+                    comments: comments2[post.id] || [],
+                    user: users2[post.user_id]
+                }, post);
+            })
+        );
+
+        var posts2 = _.go(posts3,
+            _.group_by('user_id')
+        );
+        console.log(posts2);
+
+        var users3 = _.map(users2, function(user) {
+            return _.extend({
+                posts: posts2[user.id] || []
+            }, user);
+        });
+        console.log(users3);
+
+        var user = users3[0];
+        _.go(user.posts,
+            _.pluck('comments'),
+            _.flatten,
+            console.log
+        );
+
+        console.log(_.deep_pluck(user, 'posts.comments'));
+
+        _.go(user.posts,
+            _.pluck('comments'),
+            _.flatten,
+            _.pluck('user'),
+            _.pluck('name'),
+            _.uniq,
+            _.count_by,
+            console.log
+        );
+
+        console.log(_.uniq(_.deep_pluck(user, 'posts.comments.user.name')));
+
+        _.go(user,
+            _.deep_pluck('posts.comments.user.name'),
+            _.uniq,
+            _.count_by,
+            console.log
+        );
+
+
+
+        console.log(_.filter(posts3, function(post) {
+            return _.find(post.comments, function(comment) {
+                return comment.user_id == 105;
+            })
+        }))
+    </script>
+</body>
+
+</html>

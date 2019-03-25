@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="target" id="target1">
+        content1
+    </div>
+    <div class="target" id="target2">
+        content2
+    </div>
+    <div id="source">source</div>
+
+    <input type="button" value="이동 SOURCE target2" id="btn2">
+    <script src="lib/jquery.min.js"></script>
+    <script>
+        $('#btn2').click(function() {
+            $('#target2').append($('#source'));
+        })
+    </script>
+</body>
+
+</html>

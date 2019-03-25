@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        function add10(a, callback) {
+            setTimeout(() => callback(a + 10), 100);
+        }
+        var a = add10(5, res => {
+            add10(res, res => {
+                add10(res, res => {
+                    log(res);
+                })
+            })
+        });
+
+        function add20(a) {
+            return new Promise(resolve => setTimeout(() => resolve(a + 20), 100));
+        }
+
+        var b = add20(5).then(add20).then(log);
+
+        const add5 = a => a + 5;
+        const go1 = (a, f) => a instanceof Promise ? a.then(f) : f(a);
+        const delay100 = a => new Promise(resolve =>
+                setTimeout(() => resolve(a), 100))
+            // log(go1(10, add5));
+            //log(go1(delay100(10), add5).then(add20));
+        go1(go1(10, add5), log);
+
+        const f = a => a * a;
+        const g = a => a + 1;
+        // [1].map(g).map(f).forEach(r => log(r));
+        // [1, 2, 3].map(g).filter(a => a % 2).map(f).forEach(r => log(r));
+        //Array.of(1).map(g).map(f).forEach(r => log(r));
+        //Promise.resolve(1).then(g).then(f).then(log);
+        new Promise(resolve => setTimeout(() => resolve(2), 1000))
+            .then(g).then(f).then(r => log(r));
+
+        let users = [{
+            id: 1,
+            name: 'a'
+        }, {
+            id: 2,
+            name: 'aa'
+        }, {
+            id: 3,
+            name: 'aaa'
+        }, {
+            id: 4,
+            name: 'aaaa'
+        }];
+
+        const getUserById = id =>
+            find(u => u.id == id, users) || Promise.reject('Nope');
+
+        const ff = ({
+            name
+        }) => name;
+        const gg = getUserById;
+        //  const ffgg = id => ff(gg(id))
+        const ffgg = id => Promise.resolve(id).then(gg).then(ff).catch(a => a)
+        users.pop();
+        users.pop();
+        users.pop();
+        gg(2)
+        ffgg(2).then(log)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function* generator() {
+            console.log(1)
+            yield 1
+            console.log(2)
+            yield 2
+            console.log(3)
+        }
+        const gen = generator()
+
+        const obj = {
+            a: 1,
+            b: 2,
+            c: 3,
+            *[Symbol.iterator]() {
+                for (let prop in this) {
+                    yield [prop, this[prop]]
+                }
+            }
+        }
+
+        function* gene() {
+            yield*[1, 2, 3, 4, 5]
+            yield
+            yield*'abcde'
+        }
+        const gen1 = gene();
+
+        function* gene1() {
+            yield [1, 10]
+            yield [2, 20]
+        }
+
+        function* gene2() {
+            yield [3, 30]
+            yield [4, 40]
+        }
+
+        function* gene3() {
+            console.log('yield gene1')
+            yield* gene1()
+            console.log('yield gene2')
+            yield* gene2()
+            console.log('yield* [[5,50],[6,60]]')
+            yield*[
+                [5, 50],
+                [6, 60]
+            ]
+            console.log('yield [7,70]')
+            yield [7, 70]
+        }
+        const gen3 = gene3()
+        for (let [k, v] of gen3) {
+            console.log(k, v)
+        }
+
+        function* gene4() {
+            let first = yield 1
+            let second = yield first + 2
+            yield second + 3
+        }
+        const gen4 = gene4()
+    </script>
+</body>
+
+</html>

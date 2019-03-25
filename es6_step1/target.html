@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name) {
+            const af = n => {
+                this.n
+                console.log(new.target, this.n)
+            }
+            af(name)
+        }
+        const p11 = new Person('curious')
+        const p22 = Person('jeager')
+
+        function p(n) {
+            console.dir(new.target)
+            if (new.target === p) {
+                this.name = n
+            } else {
+                throw new Error('new operator')
+            }
+        }
+
+        function a(n) {
+            p.call(this, n)
+        }
+
+        //  const pp = new a('bot')
+
+        class A {
+            constructor() {
+                if (new.target === A) {
+                    throw new Error('this is abstract class')
+                }
+                console.log(new.target)
+            }
+        }
+        class B extends A {
+            constructor() {
+                super();
+            }
+        }
+        const bb = new B();
+        const aa = new A();
+    </script>
+</body>
+
+</html>

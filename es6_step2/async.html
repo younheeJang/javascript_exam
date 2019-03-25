@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const fetchWrapper = (gen, url) => fetch(url)
+            .then(res => res.json())
+            .then(res => gen.next(res));
+
+        function* getNthUserInfo() {
+            const [gen, from, nth] = yield;
+            const req1 = yield fetchWrapper(gen, `https://api.github.com/users?since=${from||0}`);
+            const userId = req1[nth - 1 || 0].id;
+            console.log(userId);
+            const req2 = yield fetchWrapper(gen, `https://api.github.com/user/${userId}`);
+            console.log(req2);
+        }
+        const runGenerator = (generator, ...rest) => {
+            const gen = generator();
+            gen.next();
+            gen.next([gen, ...rest]);
+        }
+        runGenerator(getNthUserInfo, 1000, 4);
+
+        const fetchWrapper1 = url => fetch(url).then(res => res.json());
+
+        function* getNthUserInfo1() {
+            const [from, nth] = yield;
+            const req1 = yield fetchWrapper(gen, `https://api.github.com/users?since=${from||0}`);
+            const userId = req1[nth - 1 || 0].id;
+            console.log(userId);
+            const req2 = yield fetchWrapper(gen, `https://api.github.com/user/${userId}`);
+            console.log(req2);
+        }
+        const runGenerator1 = (generator, ...rest) => {
+            const gen = generator();
+            gen.next();
+            gen.next([...rest]).value
+                .then(res => gen.next(res).value)
+                .then(res => gen.next(res));
+        }
+        runGenerator(getNthUserInfo, 1000, 6);
+    </script>
+</body>
+
+</html>

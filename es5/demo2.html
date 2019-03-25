@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ol>
+        <li>curious</li>
+        <li>jeager</li>
+    </ol>
+    <ul>
+        <li>curious</li>
+        <li>jeager</li>
+    </ul>
+    <li id="id">id</li>
+    <li id="idd">idd</li>
+    <script src="lib/jquery.min.js"></script>
+    <script>
+        $('ol').css('color', 'pink');
+        jQuery(document).ready(function($) {
+            $('body').prepend('<h1>curious</h1>');
+        });
+        var li = document.getElementsByTagName('ul');
+        for (var i = 0; i < li.length; i++) {
+            li[i].style.color = 'red';
+        }
+        var li = document.getElementById('id');
+        li.style.color = "blue";
+        li.style.textDecoration = 'underline';
+        $('#idd').css('color', 'yellow')
+            .css('textDecoration', 'underline');
+    </script>
+
+</body>
+
+</html>

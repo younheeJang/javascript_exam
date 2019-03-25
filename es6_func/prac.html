@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        let users = [{
+            name: 'a4',
+            age: 22,
+            family: [{
+                name: 'a',
+                age: 53
+            }, {
+                name: 'aa',
+                age: 55
+            }, {
+                name: 'aaa',
+                age: 23
+            }, {
+                name: 'aaaa',
+                age: 15
+            }]
+        }, {
+            name: 'b4',
+            age: 22,
+            family: [{
+                name: 'b',
+                age: 53
+            }, {
+                name: 'bb',
+                age: 55
+            }, {
+                name: 'bbb',
+                age: 23
+            }, {
+                name: 'bbbb',
+                age: 15
+            }]
+        }, {
+            name: 'c4',
+            age: 22,
+            family: [{
+                name: 'c',
+                age: 53
+            }, {
+                name: 'cc',
+                age: 55
+            }, {
+                name: 'ccc',
+                age: 23
+            }, {
+                name: 'cccc',
+                age: 15
+            }]
+        }];
+
+        go(
+            users,
+            L.map(u => u.family),
+            L.flatten,
+            L.filter(u => u.age < 30),
+            L.map(u => u.name),
+            take(2),
+            log
+        )
+        go(
+            users,
+            L.flatMap(u => u.family),
+            L.filter(u => u.age < 30),
+            L.map(u => u.name),
+            take(2),
+            log
+        )
+    </script>
+</body>
+
+</html>

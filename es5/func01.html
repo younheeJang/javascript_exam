@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/_.js"></script>
+</head>
+
+<body>
+    <script>
+        var users = [{
+            id: 1,
+            name: 'name1',
+            age: 16
+        }, {
+            id: 2,
+            name: 'name2',
+            age: 26
+        }, {
+            id: 7,
+            name: 'name3',
+            age: 56
+        }, {
+            id: 5,
+            name: 'name4',
+            age: 96
+        }, {
+            id: 8,
+            name: 'name5',
+            age: 86
+        }, {
+            id: 6,
+            name: 'name6',
+            age: 76
+        }];
+        var temp_users = [];
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].age >= 30) {
+                temp_users.push(users[i]);
+            }
+        }
+        console.log(temp_users);
+        var names = [];
+        for (var i = 0; i < users.length; i++) {
+            names.push(users[i].name);
+        }
+        console.log(names);
+        var temp_users = [];
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].age < 30) {
+                temp_users.push(users[i]);
+            }
+        }
+        console.log(temp_users);
+        var ages = [];
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].age < 30) {
+                ages.push(users[i].age);
+            }
+        }
+        console.log(ages);
+
+
+
+
+        var over_30 = _filter(users, function(user) {
+            return user.age >= 30;
+        });
+        console.log(over_30);
+        var names = _map(over_30, function(user) {
+            return user.name;
+        })
+        console.log(names);
+        var under_30 = _filter(users, function(user) {
+            return user.age < 30;
+        });
+        console.log(under_30);
+        var ages = _map(under_30, function(user) {
+            return user.age;
+        })
+        console.log(ages);
+
+        console.log(
+            _map(
+                _filter(users, function(user) {
+                    return user.age >= 30;
+                }),
+                function(user) {
+                    return user.name;
+                }
+            )
+        );
+    </script>
+</body>
+
+</html>

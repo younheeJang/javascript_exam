@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let [, , third, firth] = ['pink', 'orange', 'yellow'];
+        console.log(third, firth)
+        const arr = [1, 2, 3, 4, 5]
+        const [a, ...b] = arr
+        const [, , ...c] = arr
+        console.log(a, b, c)
+        const [z = 10, x = 20] = [undefined, 5]
+        const [q, w = q * 2] = [5]
+        //const [e = f, f] = [undefined, 10]
+        console.log(z, x, q, w)
+        const arr2 = [1, [2, [3, 4], 5], 6]
+        const [a1, [b1, [, c1], ], d1] = arr2
+        console.log(a1, b1, c1, d1)
+        var aa = 10;
+        var bb = 20;
+        [aa, bb] = [bb, aa];
+    </script>
+</body>
+
+</html>

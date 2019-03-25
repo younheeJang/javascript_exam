@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/basic.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="card-deck" id="cardbox">
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="card-deck">
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the first card</p>
+                </div>
+            </div>
+            <div class="card bg-warning">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the second card</p>
+                </div>
+            </div>
+            <div class="card bg-success">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the third card</p>
+                </div>
+            </div>
+            <div class="card bg-danger">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the fourth card</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/data.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let cardbox = document.getElementById('cardbox');
+            let card = '<div class="col-sm-3 no-pd">' + '<div class="card bg-primary mb10">' +
+                '<div class="card-body text-center">' +
+                '<p class="card-text"></p></div></div></div>';
+            for (let i = 0; i < data.length; i++) {
+                cardbox.innerHTML += card;
+                let p = document.getElementsByClassName('card-text');
+                p[i].innerHTML = data[i].content;
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

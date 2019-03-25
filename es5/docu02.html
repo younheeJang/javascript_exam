@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        div {
+            border: 20px solid skyblue;
+            padding: 50px;
+            margin: 50px;
+            width: 200px;
+        }
+        
+        #curious {
+            width: 20px;
+            height: 1000px;
+        }
+    </style>
+    <input type="button" id="scrollBtn" value="scroll(0,1000)" />
+    <script>
+        document.getElementById('scrollBtn').addEventListener('click', function() {
+            window.scrollTo(0, 1000);
+        })
+    </script>
+    <div id="curious"></div>
+</body>
+
+</html>

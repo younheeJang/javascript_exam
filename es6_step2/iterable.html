@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr = ['a', 'b', 'c']
+        const set = new Set(['a', 'b', 'c'])
+        const map = new Map([
+            [false, 'n'],
+            [true, 'y'],
+            ['well', 'so']
+        ])
+        const str = 'string iterable'
+        const obj = {
+            0: 1,
+            1: 2,
+            2: 3,
+            length: 3
+        }
+
+
+        const gene = (function*() {
+            yield 1
+            yield 2
+            yield 3
+        })()
+
+        const [arrA, , arrC] = arr;
+        const [mapA, , mapC] = map;
+        const [, setB, setC] = set;
+        const [, strB, ...strRest] = str;
+        const [geneA, ...geneRest] = gene;
+
+        const iter = arr[Symbol.iterator]();
+        const iter1 = map[Symbol.iterator]();
+
+        for (let x of[1, 2, 3]) {
+            console.log(x)
+        }
+
+        const p = [
+            new Promise((resolve, reject) => {
+                setTimeout(resolve, 500, 1)
+            }),
+            new Promise((resolve, reject) => {
+                setTimeout(resolve, 100, 2)
+            }),
+            3456,
+            'abc',
+            new Promise((resolve, reject) => {
+                setTimeout(resolve, 300, 3)
+            })
+        ]
+        Promise.all(p).then(v => {
+                console.log(v)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+
+
+        const makeGenerator = iterable => function*() {
+            yield* iterable
+        }
+        const arrGen = makeGenerator(arr)()
+        const mapGen = makeGenerator(map)()
+        const setGen = makeGenerator(set)()
+        const strGen = makeGenerator(str)()
+    </script>
+</body>
+
+</html>

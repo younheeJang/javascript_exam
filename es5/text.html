@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p id="curious">curious jeager</p>
+    <p>data: <input type="text" id="datasource" value="js" /></p>
+    <p>start: <input type="text" id="start" value="5" /></p>
+    <p>end: <input type="text" id="end" value="5" /></p>
+    <p><input type="button" value="appendData(data)" onclick="callAppendData()" />
+        <input type="button" value="deleteData(start, end)" onclick="callDeleteData()" />
+        <input type="button" value="insertData(start, data)" onclick="callInsertData()" /></p>
+    <input type="button" value="replaceData(start,end,data)" onclick="callReplaceData()" />
+    <input type="button" value="substringData(start,end)" onclick="callSubstringData()" />
+    <script>
+        var curious = document.getElementById('curious').firstChild;
+        var data = document.getElementById('datasource');
+        var start = document.getElementById('start');
+        var end = document.getElementById('end');
+
+        function callAppendData() {
+            curious.appendData(data.value);
+        }
+
+        function callDeleteData() {
+            curious.deleteData(start.value, end.value);
+        }
+
+        function callInsertData() {
+            curious.insertData(start.value, data.value);
+        }
+
+        function callReplaceData() {
+            curious.replaceData(start.value, end.value, data.value);
+        }
+
+        function callSubstringData() {
+            console.log(curious.substringData(start.value, end.value));
+        }
+    </script>
+</body>
+
+</html>

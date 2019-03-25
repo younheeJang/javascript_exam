@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        let it = L.map(a => a + 10, [1, 2, 3]);
+        log(it.next());
+        log([...it]);
+
+
+        let it1 = L.filter(a => a % 2, [1, 2, 3, 4])
+        log(it1.next());
+        log(it1.next());
+
+        go(range(10),
+            map(m => m + 10),
+            filter(n => n % 2),
+            take(4),
+            log)
+        go(L.range(10),
+            L.map(m => m + 10),
+            L.filter(n => n % 2),
+            take(4),
+            log)
+
+        L.entries = function*(obj) {
+            for (const k in obj) yield [k, obj[k]];
+        }
+        let ii = L.entries({
+            limit: 10,
+            offset: 10,
+            type: 'notice'
+        })
+        log(ii.next());
+        const join = curry((sep = ',', iter) =>
+            reduce((a, b) => `${a}${sep}${b}`, iter));
+        const queryStr = pipe(
+            L.entries,
+            a => (console.log(a), a),
+            L.map(([k, v]) => `${k}=${v}`),
+            function(a) {
+                console.log(a);
+                return a;
+            },
+            join('&'));
+        log(queryStr({
+            limit: 10,
+            offset: 10,
+            type: 'notice'
+        }));
+
+        function* a() {
+            yield 10;
+            yield 10;
+            yield 10;
+            yield 10;
+        }
+        log(join('-', a()))
+
+        const users = [{
+            age: 22
+        }, {
+            age: 25
+        }, {
+            age: 52
+        }]
+
+        log(find(u => u.age < 30, users))
+
+        go(users, L.map(u => u.age), find(n => n < 30), log)
+
+        log(map(a => a + 10, L.range(4)))
+        log(filter(a => a % 2, L.range(4)))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function a() {}
+        console.log(a.name)
+        const c = function cc() {}
+        console.log(c.name)
+        const d = () => {}
+        console.log(d.name)
+        const e = {
+            on1: function() {},
+            on2() {},
+            on3: () => {}
+        }
+        console.log(e.on1.name, e.on2.name,
+            e.on3.name)
+        class F {
+            static method1() {}
+            method2() {}
+        }
+        const f = new F()
+        console.log(F.method1.name, f.method2.name)
+
+        function G() {}
+        G.method1 = function() {}
+        G.prototype.method2 = function() {}
+
+        const g = new G()
+        console.log(F.method1.name, g.method2.name)
+
+        const z = new Function('a', 'b', 'return a+b')
+        const y = function(a, b) {
+            return a + b;
+        }
+        console.log(z(1, 2))
+        console.log(y(1, 2))
+
+        function a0() {
+            console.log(this)
+        }
+        console.log(a0.call({}))
+
+        const a00 = c.bind({
+            a: 1
+        })
+
+        function a000(x, y, z) {
+            console.log(this, x, y, z);
+        }
+
+        console.log(a000.call({}, 1, 2, 3))
+        const b0 = a000.bind({}, 1, 2)
+        console.log(b0(7))
+
+        const person = {
+            _name: "curious",
+            get name() {
+                return this._name
+            },
+            set name(v) {
+                this._name = v
+            }
+        }
+        const descriptor = Object.getOwnPropertyDescriptor(person, 'name')
+    </script>
+</body>
+
+</html>

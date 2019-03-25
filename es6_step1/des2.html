@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const iu = {
+            name: 'dkdldkdldb',
+            age: 11,
+            gender: 'fe'
+        }
+        const {
+            name,
+            age,
+            gender
+        } = iu
+        console.log(name, age, gender)
+
+        const {
+            device: {
+                createdA,
+                deviceId,
+                deviceType
+            },
+            user: userInfo,
+            user: {
+                createdA: userCreatedAt,
+                email,
+
+            }
+        } = {
+            device: {
+                createdA: '2019-02-2asdk:daj+df55',
+                deviceId: '1548415s13s23',
+                deviceType: 'safe'
+            },
+            user: {
+                createdA: '2019-28-45ae:dsa-sf-201',
+                email: 'edam@naver.com',
+                name: 'us',
+                nickname: 'asdf',
+                phoneNumber: '090-909-9090'
+            }
+        }
+        const phone = {
+            name: 'dkdlvhs',
+            color: undefined
+        }
+        const {
+            name: n,
+            version: v = 's',
+            color: c = 'sula'
+        } = phone
+        console.log(n, v, c)
+
+        const deliveryP = {
+            orderdD: 'sfdsaf',
+            estinatedD: 'asdfdsd',
+            status: 'wnd',
+            items: [{
+                name: 'a',
+                price: 10,
+                quantity: 3
+            }, {
+                name: 'aaa',
+                price: 102,
+                quantity: 9
+            }, {
+                name: 'as',
+                price: 1880,
+                quantity: 8
+            }]
+        }
+
+        const {
+            estinatedD: eaf,
+            status,
+            items: [, ...products]
+        } = deliveryP
+        console.log(eaf, status, products)
+        const getUrlParts = (url) => /^(https?):\/\/(abc\.com)(\/es6\/([a-z0-7-\-.,]+))$/.exec(url)
+        const [, protocol, host, , title] = getUrlParts('https://abc.com/es6/7-1.destructing')
+        console.log(protocol, host, title)
+
+        const getArea = ({
+            width,
+            height
+        } = {
+            width: 0,
+            height: 0
+        }) => {
+
+            return width * height
+        }
+        dispatch({
+            type: 'DELETE_TODO',
+            index: 1,
+            id: 2
+        })
+    </script>

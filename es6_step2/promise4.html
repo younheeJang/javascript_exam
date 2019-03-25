@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.10.0/axios.min.js"></script>
+</head>
+
+<body>
+    <script>
+        const script = document.createElement('script')
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/axios/0.10.0/axios.min.js'
+
+        document.body.innerHTML += '<button id="btn">click</button>'
+        document.getElementById('btn').addEventListener('click', async function(e) {
+            const res = await axios.get('https://api.github.com/users?since=1000');
+            console.log(res);
+            var target = res.data[2];
+            const res2 = await axios.get('https://api.github.com/user/' + target.id);
+            var _id = 'img' + res.data.id
+            document.body.innerHTML += '<img id="' + _id + '" src="' + res2.data.avatar_url + '"/>';
+            document.getElementById(_id).addEventListener('click', function(e) {
+                this.remove()
+            })
+        })
+    </script>
+</body>
+
+</html>

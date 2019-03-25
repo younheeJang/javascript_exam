@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/partial.js"></script>
+</head>
+
+<body>
+    <script>
+        var b = ['bb', 'nn']
+        var m = ['cc', 'aa']
+        var a = b.concat('ss').concat(m)
+        console.log(a)
+        const a2 = [...b, 'ss', ...m]
+        console.log(a2)
+        const vals = [10, 20, 30]
+        const sum = (...args) => args.reduce((p, c) => p + c, 10)
+        console.log(sum(1, 2, ...vals))
+        const str = 'hello'
+        const splitArr = str.split('')
+        const resArr = [...str]
+        console.log(splitArr, resArr)
+        const set = new Set();
+        set.add(1).add(2).add(3)
+        console.log(set);
+        let ori = [{
+            first: 'd',
+            second: 'ss'
+        }, {
+            first: 'ss',
+            second: 's'
+        }]
+        let copied = [...ori]
+        console.log(ori[0].first)
+
+        copied[0].first = 'aaa'
+        console.log(ori[0].first)
+
+        const convertExtension = (fullFileName) => {
+            const full = fullFileName.split('.')
+            const filename = full[0]
+            const ext = full[1] && full[1] === 'png' ? 'jpg' : 'gif'
+            return {
+                filename,
+                ext
+            }
+        }
+        console.log(convertExtension('abc.jpg'))
+
+        const {
+            name,
+            age
+        } = {
+            name: 'aa',
+            age: 10
+        }
+        console.log(name, age)
+    </script>
+</body>
+
+</html>

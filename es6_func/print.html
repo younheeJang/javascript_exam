@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <div id="cart"></div>
+    <script>
+        const products = [{
+            name: '반팔티',
+            price: 15000,
+            quantity: 1,
+            is_selected: true
+        }, {
+            name: '긴팔티',
+            price: 10000,
+            quantity: 9,
+            is_selected: false
+        }, {
+            name: '핸드폰케이스',
+            price: 80000,
+            quantity: 2,
+            is_selected: true
+        }];
+        const add = (a, b) => a + b;
+        const condition = predi => pipe(
+            map(predi),
+            reduce(add)
+        )
+
+        const sum = curry((f, iter) => go(
+            iter,
+            map(f),
+            reduce(add)
+        ));
+
+        const total_quantity0 = sum(p => p.quantity);
+        const total_price0 = sum(p => p.quantity * p.price);
+
+        log(total_quantity0(products));
+        log(total_price0(products));
+
+        const total_quantity = pipe(
+            condition(p => p.quantity));
+        log(total_quantity(products))
+
+        const total_price = pipe(
+            condition(p => p.price * p.quantity));
+        log(total_price(products))
+
+        const products_over20000 = pipe(
+            filter(p => p.price > 20000),
+            map(p => p.name),
+        )
+        log(products_over20000(products))
+        document.querySelector('#cart').innerHTML = '<table><tr>' +
+            '<th></th><th>name</th><th>price</th>' +
+            '<th>quantity</th><th>total</th></tr>' +
+            `${go(products, sum(p=>`
+                <tr>
+                        <td><input type="checkbox" ${p.is_selected?'checked':''}></td><td>${p.name}</td>
+                        <td>${p.price}</td><td><input type="number" value="${p.quantity}"></td><td>${p.price*p.quantity}</td>
+                </tr>`)
+                )}` +
+            '<tr><td></td><td colspan="2">합계</td><td>' + `${total_quantity(filter(p=>p.is_selected, products))}` + 
+                '</td><td>' + `${total_price(filter(p=>p.is_selected, products))}` + '</td></tr>' +
+            '</table>';
+    </script>
+</body>
+
+</html>

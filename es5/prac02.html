@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/_.js"></script>
+    <script src="js/partial.js"></script>
+</head>
+
+<body>
+    <script>
+        var products = [{
+            is_selected: true,
+            name: "반팔티",
+            price: 10000,
+            sizes: [{
+                name: "L",
+                quantity: 2,
+                price: 0
+            }, {
+                name: "XL",
+                quantity: 3,
+                price: 0
+            }, {
+                name: "2XL",
+                quantity: 2,
+                price: 2000
+            }, ]
+        }, {
+            is_selected: true,
+            name: "후드티",
+            price: 21000,
+            sizes: [{
+                name: "L",
+                quantity: 3,
+                price: -1000
+            }, {
+                name: "2XL",
+                quantity: 1,
+                price: 2000
+            }, ]
+        }, {
+            is_selected: false,
+            name: "맨투맨",
+            price: 16000,
+            sizes: [{
+                name: "L",
+                quantity: 4,
+                price: 0
+            }]
+        }];
+
+        var total_quantity = _.reduce(function(tq, product) {
+            return _.reduce(product.sizes, function(tq, size) {
+                return tq + size.quantity;
+            }, tq);
+        }, 0);
+        _.go(products,
+            total_quantity, console.log
+        );
+
+        _.go(products,
+            _.filter(_get('is_selected')), total_quantity, console.log
+        );
+
+        var total_price = _.reduce(function(tp, product) {
+            return _.reduce(product.sizes, function(tp, size) {
+                return tp + (product.price + size.price) * size.quantity;
+            }, tp);
+        }, 0);
+        _.go(products,
+            total_price,
+            console.log);
+        _.go(products,
+            _.filter(_get('is_selected')),
+            total_price,
+            console.log);
+    </script>
+</body>
+
+</html>

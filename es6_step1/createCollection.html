@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/partial.js"></script>
+</head>
+
+<body>
+    <script>
+        const createCollection = {
+            Map(keys, ...vals) {
+                const m = new Map()
+                vals.forEach((val, i) => {
+                    m.set(keys[i].trim(), val)
+                })
+                return m
+            },
+            WMap(keys, ...vals) {
+                const wm = new WeakMap()
+                for (let i = 0; i < vals.length; i += 2) {
+                    wm.set(vals[i], vals[i + 1])
+                }
+                return wm
+            },
+        }
+        const wkeys = [{
+            a: 100
+        }, {
+            b: 200
+        }]
+        const map = createCollection.Map `
+        a ${10}
+        a ${'what'}
+        fn ${v=>v+10}`
+        let wmap = createCollection.WMap `
+        ${wkeys[0]} ${10}
+        ${wkeys[1]} ${20}`
+        console.log(map)
+        console.log(wmap)
+    </script>
+</body>
+
+</html>

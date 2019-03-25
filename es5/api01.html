@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li class="marked">curious</li>
+        <li>jeager</li>
+        <li id="active">js
+            <ul>
+                <li>core</li>
+                <li class="marked">marked</li>
+                <li class="marked">marked01</li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+        var list = document.getElementsByClassName('marked');
+        console.group('document');
+        for (var i = 0; i < list.length; i++) {
+            console.log(list[i].textContent);
+        }
+        console.groupEnd();
+
+        console.group('active');
+        var active = document.getElementById('active');
+        var list = active.getElementsByClassName('marked');
+        for (var i = 0; i < list.length; i++) {
+            console.log(list[i].textContent);
+        }
+        console.groupEnd();
+    </script>
+</body>
+
+</html>

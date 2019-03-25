@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="curious">
+        <button id="target">button</button>
+        <button id="target1">button1</button>
+    </div>
+    <script>
+        var t = document.getElementById('target');
+        var t1 = document.getElementById('target1');
+
+        function buttonEvent(event) {
+            console.log(event);
+            switch (event.target.id) {
+                case 'target':
+                    console.log(1);
+                    break;
+                case 'target1':
+                    console.log(2);
+                    break;
+            }
+        }
+        t.addEventListener('click', buttonEvent);
+        t1.addEventListener('click', buttonEvent);
+    </script>
+</body>
+
+</html>

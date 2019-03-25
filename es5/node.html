@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="target">
+        <li>curious</li>
+        <li>jeager</li>
+    </ul>
+    <input type="button" onclick="beforebegin();" value="beforebegin">
+    <input type="button" onclick="afterbegin();" value="afterbegin">
+    <input type="button" onclick="beforeend();" value="beforeend">
+    <input type="button" onclick="afterend();" value="afterend">
+    <script>
+        function beforebegin() {
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('beforebegin', '<h1>beforebegin</h1>')
+        }
+
+        function afterbegin() {
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('afterbegin', '<h1>afterbegin</h1>')
+        }
+
+        function beforeend() {
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('beforeend', '<h1>beforeend</h1>')
+        }
+
+        function afterend() {
+            var target = document.getElementById('target');
+            target.insertAdjacentHTML('afterend', '<h1>afterend</h1>')
+        }
+    </script>
+</body>
+
+</html>

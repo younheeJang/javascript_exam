@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li class="a">a</li>
+        <li class="a">a</li>
+
+    </ul>
+    <script>
+        const a = [1, 2, 3, 4, 5, 6, 6]
+        const b = a.reduce((a, v) => {
+            if (a.includes(v)) return a;
+            a.push(v);
+            return a;
+        }, [])
+        const c = new Set()
+        c.add(5)
+        c.add('5')
+        c.add(-0)
+        c.add(+0)
+        const s = new Set([1, 2, 3, '1', 2, 7, 8])
+        const map = new Map()
+        map.set('a', 1).set('b', 2).set({}, 3)
+        const set2 = new Set([...map])
+        console.log(set2)
+        set2.forEach(function(k, v, s) {
+            console.log(k, v, this)
+        })
+        const neww = [...new Set(a)]
+
+        const ws = new WeakSet()
+        let o = {}
+        ws.add(o)
+        o = null;
+    </script>
+</body>
+
+</html>

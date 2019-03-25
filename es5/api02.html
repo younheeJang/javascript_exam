@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a id="target" href="blog.naver.com/edam0530">curious</a>
+    <script>
+        var t = document.getElementById('target');
+        console.log(t.getAttribute('href'));
+        t.setAttribute('title', 'curiousjeager');
+        console.log(t.hasAttribute('title'));
+    </script>
+</body>
+
+</html>

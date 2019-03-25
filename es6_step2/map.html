@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const o = [1, 2, 3, 4, 5, 6]
+        for (let key in o) {
+            console.log(key, o[key])
+        }
+        // Object.prototype.method = function() {}
+        for (let key in o) {
+            if (o.hasOwnProperty(key)) {
+                console.log(key, o[key])
+            }
+
+        }
+        const objarr = obj => {
+            const arr = []
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    arr.push([key, obj[key]])
+                }
+            }
+            return arr
+        }
+
+        const oArr = objarr(o)
+        oArr.forEach(v => console.log(v))
+        const oArr2 = Object.keys(o).map(k => [k, o[k]])
+        oArr2.forEach(v => console.log(v))
+        const obj = {
+            1: 10,
+            2: 20,
+            2: 30
+        }
+
+        let res = 0
+        for (let key in obj) {
+            res += key
+        }
+        console.log(res)
+
+        const map = new Map()
+        map.set(1, 10)
+        map.set(01, 20)
+        map.set('01', 30)
+        map.set({}, 40)
+        map.set(function() {}, () => {})
+
+        const map1 = new Map()
+        map1.set('name', 'curious')
+        map1.set('age', 31)
+
+        const map2 = new Map([
+            [10, 10],
+            ['10', '10'],
+            [false, true]
+        ])
+        const map3 = new Map(map2)
+        const mapa1 = [...map2]
+        const mapa2 = [...map2.keys()]
+        const mapa3 = [...map2.values()]
+        const mapa4 = [...map2.entries()]
+    </script>
+</body>
+
+</html>

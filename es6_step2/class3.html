@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Shape {
+            constructor() {
+                if (new.target === Shape) {
+                    throw new Error('이 클래스는 직접 인스턴스화 할 수 없는 추상클래스이에요')
+                }
+            }
+            getSize() {}
+        }
+        class Rectangle extends Shape {
+            constructor(width, height) {
+                super()
+                this.width = width
+                this.height = height
+            }
+            getArea() {
+                return this.width * this.height
+            }
+        }
+        const s = new Shape()
+        const r = new Rectangle(4, 5)
+        class Square extends Rectangle {
+            constructor(width) {
+
+                super(width, width)
+            }
+            getArea() {
+                console.log('get area of square')
+
+                return this.width * this.height
+            }
+            getX() {
+                return super.getArea()
+            }
+        }
+        const square = new Square(3)
+    </script>
+</body>
+
+</html>
