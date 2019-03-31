@@ -78,6 +78,50 @@
             take(2),
             log
         )
+
+        /*
+        go(
+            Promise.resolve(1),
+            a => a + 10,
+            a => Promise.reject('error'),
+            a => a + 1000,
+            a => a + 10000,
+            log
+        ).catch(a => console.log(a));
+*/
+        go([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)],
+            L.map(a => Promise.resolve(a + 10)),
+            take(2),
+            log
+        );
+        go(
+            [1, 2, 3, 4, 5, 6],
+            //L.map(a => Promise.resolve(a * a)),
+            L.map(a => a * a),
+            L.filter(a => Promise.resolve(a % 2)),
+            L.map(a => {
+                // log(a);
+                return a * a;
+            }),
+            take(2),
+            log
+        );
+        const add = (a, b) => a + b;
+        go(
+            [1, 2, 3, 4, 5, 6, 7, 8],
+            L.map(a => {
+                log(a);
+                return new Promise(resolve =>
+                    setTimeout(() => resolve(a * a), 1000))
+            }),
+            L.filter(a => {
+                log(a);
+                return new Promise(resolve =>
+                    setTimeout(() => resolve(a % 2), 1000))
+            }),
+            takeAll,
+            log
+        )
     </script>
 </body>
 

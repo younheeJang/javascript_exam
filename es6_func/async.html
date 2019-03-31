@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        function delay(time) {
+            return new Promise(resolve =>
+                setTimeout(() => resolve(), time))
+        }
+        async function delayIdentity(a) {
+            await delay(500);
+            return a;
+        }
+        async function f1() {
+            const a = await delayIdentity(10);
+            const b = await delayIdentity(5);
+            return (a + b);
+        }
+        (async() => {
+            log(await f1());
+        })();
+        const pa = Promise.resolve(10);
+        (async() => {
+            log(await pa);
+        })();
+        //f1();
+    </script>
+</body>
+
+</html>

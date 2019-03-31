@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        //Concurrency
+        C = {};
+
+        function noop() {}
+        const catchNoop = ([...arr]) =>
+            (arr.forEach(a => a instanceof Promise ? a.catch(noop) : a), arr);
+
+        /*
+       C.reduce = curry((f, acc, iter) => {
+            const iter2 = catchNoop(iter ? [...iter] : [...acc]);
+            return iter ?
+                reduce(f, acc, iter2) : reduce(f, iter2)
+        });
+*/
+        C.reduce = curry((f, acc, iter) =>
+            iter ?
+            reduce(f, acc, catchNoop(iter)) : reduce(f, catchNoop(acc))
+        );
+
+        C.take = curry((l, iter) => take(l, catchNoop(iter)));
+        C.takeAll = C.take(Infinity);
+        C.map = curry(pipe(L.map, C.takeAll));
+        C.filter = curry(pipe(L.filter, C.takeAll));
+        const delay500 = (a, name) => new Promise(resolve => {
+            log(`${name}:${a}`)
+            setTimeout(() => resolve(a), 500)
+        });
+        const add = (a, b) => a + b;
+        console.time('');
+        go([1, 2, 3, 4, 5],
+                L.map(a => delay500(a * a, 'map1')),
+                C.filter(a => delay500(a % 2, 'filter2')),
+                map(a => delay500(a * a, 'map3')),
+                take(2),
+                // C.reduce(add),
+                log,
+                _ => console.timeEnd('')
+            )
+            //   C.map(a => delay500(a * a), [1, 2, 3, 4]).then(log);
+            // C.filter(a => delay500(a % 2), [1, 2, 3, 4]).then(log);
+    </script>
+</body>
+
+</html>

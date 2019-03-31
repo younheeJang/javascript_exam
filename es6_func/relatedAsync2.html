@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+</head>
+
+<body>
+    <script>
+        async function delayI(a) {
+            return new Promise(resolve =>
+                setTimeout(() => resolve(a), 100));
+        }
+
+        function f5(list) {
+            return go(list,
+                L.map(a => delayI(a * a)),
+                L.filter(a => delayI(a % 2)),
+                L.map(a => delayI(a + 1)),
+                take(3),
+                reduce((a, b) => delayI(a + b)));
+        }
+        go(f5([1, 2, 3, 4, 5, 6, 7, 8]), log);
+
+        async function f6(list) {
+            let temp = [];
+            for (const a of list) {
+                const b = await delayI(a * a);
+                if (await delayI(b % 2)) {
+                    const c = await delayI(b + 1);
+                    temp.push(c);
+                    if (temp.length == 3) {
+                        break;
+                    }
+                }
+            }
+            let res = temp[0],
+                i = 0;
+            while (++i < temp.length) {
+                res = await delayI(res + temp[i]);
+            }
+            return res;
+        }
+        go(f6([1, 2, 3, 4, 5, 6, 7, 8]), log);
+
+        async function f52(list) {
+            const r1 = await go(list,
+                L.map(a => delayI(a * a)),
+                L.filter(a => delayI(a % 2)),
+                L.map(a => delayI(a + 1)),
+                take(3),
+                reduce((a, b) => delayI(a + b)));
+            const r2 = await go(list,
+                L.map(a => delayI(a * a)),
+                L.filter(a => delayI(a % 2)),
+                reduce((a, b) => delayI(a + b)));
+            const r3 = await delayI(r1 + r2);
+            return r3 + 10;
+        }
+        go(f52([1, 2, 3, 4, 5, 6, 7, 8]), a => log(a, 'f52'));
+
+        function f7(list) {
+            try {
+                return list
+                    .map(a => a + 10)
+                    .filter(a => a % 2)
+                    .slice(0, 2);
+            } catch (e) {
+                log(e);
+                return [];
+            }
+        }
+        log(f7(null));
+
+        go(f52([1, 2, 3, 4, 5, 6, 7, 8]), a => log(a, 'f52'));
+
+        async function f8(list) {
+            try {
+                return await go(list,
+                    L.map(a => new Promise(resolve => {
+                        resolve(JSON.parse(a));
+                    })),
+                    L.filter(a => a % 2),
+                    take(2));
+            } catch (e) {
+                log(e);
+                return [];
+            }
+        }
+        log(f8(['0', '1', '2', '3', '4', '<']).then(log).catch(e => {
+            log('error')
+        }));
+    </script>
+</body>
+
+</html>
