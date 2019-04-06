@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../es6_func/js/js.js"></script>
+    <script src="pagination.js"></script>
+</head>
+
+<body>
+    <script>
+        //오리지널 버전 쓰려면 다른 로직이 추가되어야 함. 
+        //일단 PS가 5로 되어야 한다는 요구사항은 맞췄으니. 나중을 기약하겠음.
+        //PS가 5로 정상동작하는 페이지네이션은 pagination.js에 .
+        let pagination_original = (D, F, L, S, PS) => {
+            //let D, F, L, S;
+            let res = [];
+            //D = 100, F = 9, S = 10;
+            //L = D % S ? D / S : D / S + 1;
+            log(L);
+            if (F == L) {
+                res.push(L);
+                log(res);
+                return res;
+            }
+            /*
+            let K = F + PS;
+            if (F > L / 2 + 2) {
+                for (let i = 1; i <= L; i++) {
+                    K = K - i;
+                    res.push(K);
+                    return false;
+                }
+
+            }
+            */
+            let K = F + PS;
+            if (F / 10 != 0) {
+                K = K - F / 10;
+            }
+            for (let i = F; i <= K; i++) {
+
+                res.push(i);
+            }
+            return res;
+        }
+
+        //D:데이터 리스트의 렝스, F:사용자가 지정한 페이지 넘버 디폴트 1
+        //L:마지막 페이지 넘버 , S:한 페이지 당 보여줄 리스트의 개수,
+        //PS:사용자에게 보여줄 페이지의 수
+        log(pagination(300, 41, 300 % 10 ? 300 / 10 + 1 : 300 / 10, 10));
+        log(pagination(300, 45, 300 % 10 ? 300 / 10 + 1 : 300 / 10, 10));
+        log(pagination(300, 17, 3000 % 10 ? 300 / 10 + 1 : 300 / 10, 10));
+        log(pagination(3000, 37, 3000 % 10 ? 3000 / 10 + 1 : 3000 / 10, 10));
+        log(pagination(3000, 18, 3000 % 10 ? 3000 / 10 + 1 : 3000 / 10, 10));
+        log(pagination(100, 7, 100 % 10 ? 100 / 10 + 1 : 100 / 10, 10));
+        log(pagination(3000, 300, 3000 % 10 ? 3000 / 10 + 1 : 3000 / 10, 10));
+        log(pagination(165, 3, 165 % 10 ? 165 / 10 + 1 : 165 / 10, 10));
+        log(pagination(120, 11, 120 % 10 ? 120 / 10 + 1 : 120 / 10, 10));
+
+
+
+        // log(pagination(1000, 98, 1000 % 10 ? 1000 / 10 + 1 : 1000 / 10, 10))
+    </script>
+</body>
+
+</html2
