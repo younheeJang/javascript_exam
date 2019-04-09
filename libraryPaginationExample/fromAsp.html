@@ -1,0 +1,217 @@
+<!--
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sub_menu_customer").show();
+        });
+
+
+
+        let freeBoardList;
+        window.onload = () => {
+            getFreeBoardList(1, '');
+        }
+
+
+        let getDetail = (bbsType, BBsSeq) => {
+                    window.location.href = "@Url.Action("Detail", "Customer")?bbsType=" + bbsType + "&BBsSeq=" + BBsSeq;
+        }
+
+        let getFreeBoardList = (page, keyword) => {
+            let _for_list_page = page, _pagination_page = page;
+            let _keyword = keyword;
+            $.post("@Url.Action("getList", "Customer")", { bbsType: '5', page: _for_list_page, keyword: checkNull(_keyword)},
+                (res) => {
+                    let cookieArr = cookie(document.cookie);
+                    let UserName = cookieArr[1];
+                    log(UserName);
+                    if (UserName) {
+                        $('#writeBtn').removeClass('hide');
+                    } else { }
+                    let freeBoardList = res;
+                    let totalCount;
+                    totalCount = freeBoardList[0].TotalCount;
+                    let LC = totalCount, PN, PS = 10, ps = 10;
+                    if (freeBoardList != null) {     
+                          document.querySelector('#freeBoardList ').innerHTML = `${go(freeBoardList, sum(p => `
+                            <tr><td style="cursor:pointer;"></td>
+                             <td class="hide" value="${ps--}"></td>
+                             <td class="td_C_Swit cursor-p" onclick="getDetail(${5},${p.BBsSeq})">${totalCounterP(LC, page == undefined ? 1 : page, PS, ps)}</td>
+                             <td class="td_C_Swit cursor-p" onclick="getDetail(${5},${p.BBsSeq})">${p.RegistryDate}</td>
+                             <td class="td_C_Swit cursor-p" onclick="getDetail(${5},${p.BBsSeq})">${p.Title}</td>
+                             <td class="td_C_Swit cursor-p" onclick="getDetail(${5},${p.BBsSeq})">${p.WriterName}</td>
+                             <td class="td_C_Swit cursor-p" onclick="getDetail(${5},${p.BBsSeq})">${p.ReadCount}</td>
+                             <td></td>
+                            </tr>
+                     `))}`;
+                      } else {
+                          docoument.querySelector('#notList').innerHTML = '<tr><td align="left"></td>'
+                              + '< td class="td_C_Swit" colspan = "6" > 작성된 글이 없습니다.</td >'
+                              + '<td align="right"></td></tr>';
+                      }
+
+                    let F = 1;
+                    let L = totalCount % PS ? totalCount / PS + 1 : totalCount / PS;
+                    _pagination_page = getPaginationPage(_pagination_page);
+                    let data_standard;
+                    if (_keyword && _keyword != undefined) {
+                        document.querySelector('#setPageNum').setAttribute("data-standard", `${_for_list_page}`);
+                        document.querySelector('#pagination').innerHTML = `${go(pagination_5(totalCount, page, L, PS), sum(p => `
+                        <a class="cursor-p data-state" data-state=${p} onclick="getNewsList(${p},'${_keyword}')">&nbsp;${p}&nbsp;</a>
+                        `))}`;
+                        document.querySelector('#first_page').setAttribute("onclick", `getNewsList(${F},'${_keyword}')`);
+                        document.querySelector('#pre_page').setAttribute("onclick", `getNewsList(${pre_page_num(totalCount, page, L, PS) - 1},'${_keyword}')`);
+                        document.querySelector('#next_page').setAttribute("onclick", `getNewsList(${(next_page_num(totalCount, page, L, PS) + 1)},'${_keyword}')`);
+                        document.querySelector('#last_page').setAttribute("onclick", `getNewsList(${last_avenue(L)},'${_keyword}')`);
+                        data_standard = document.querySelector('#setPageNum').getAttribute("data-standard");
+                        let data_state_list = document.querySelectorAll('.data-state');
+                        setStyle(compareDataStandardWithDataState(getDataState(data_state_list, 'data-state'), data_standard, 'data-state'), 'style', 'color', '#3498DB');
+                    } else {
+                        document.querySelector('#setPageNum').setAttribute("data-standard", `${_for_list_page}`);
+                        document.querySelector('#pagination').innerHTML = `${go(pagination_5(totalCount, page, L, PS), sum(p => `
+                        <a class="cursor-p data-state" data-state=${p} onclick="getNewsList(${p})">&nbsp;${p}&nbsp;</a>
+                        `))}` + `<a class="hide" value="${next_page_num(totalCount, page, L, PS) + 1}"></a>`;
+                        document.querySelector('#first_page').setAttribute("onclick", `getNewsList(${F})`);
+                        document.querySelector('#pre_page').setAttribute("onclick", `getNewsList(${pre_page_num(totalCount, page, L, PS) - 1})`);
+                        document.querySelector('#next_page').setAttribute("onclick", `getNewsList(${(next_page_num(totalCount, page, L, PS) + 1)})`);
+                        document.querySelector('#last_page').setAttribute("onclick", `getNewsList(${last_avenue(L)})`);
+                        data_standard = document.querySelector('#setPageNum').getAttribute("data-standard");
+                        let data_state_list = document.querySelectorAll('.data-state');
+                        setStyle(compareDataStandardWithDataState(getDataState(data_state_list, 'data-state'), data_standard, 'data-state'), 'style', 'color', '#3498DB');
+                    }
+        });
+        }
+      
+    </script>
+}
+    <td align="left" valign="top" width="810">
+
+        <table width="800" border="0" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td height="140" align="center" valign="bottom"><img src="~/Content/images/main_banner.jpg"></td>
+					</tr>
+					<tr>
+						<td align="center" valign="top">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr>
+										<td height="20" class="navi">home <img src="~/Content/images/in_arrow.gif"> 고객센터 <img src="~/Content/images/in_arrow.gif">자유게시판<br></td>
+									</tr>
+									<tr>
+										<td align="left"><img src="~/Content/images/oms/faq_free_tit.gif"></td>
+									</tr>
+								</tbody>
+							</table>
+							<br>
+							<br>
+							<table width="730" border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr>
+										<td width="20" align="right"><img src="~/Content/images/pop_sh_left.gif"></td>
+										<td width="690" height="53" align="center" background="~/Content/images/pop_sh_bg.gif">
+											<form name="searchform" method="post" onsubmit="return false;">
+												<table width="690" border="0" cellspacing="0" cellpadding="0">
+													<tbody>
+														<tr>
+															<td width="390" align="right">
+																<span>
+																	<input name="keyword" type="text" id="keyword" size="25" maxlength="15" class="Sinput" onkeypress="getFreeBoardList(1, $(this).val())">
+																	<input type="hidden" name="Tblname" value="">
+																</span>
+															</td>
+															<td width="300" align="left">
+																&nbsp;<img src="~/Content/images/search_bnt.gif" alt="검색하
+																	   기" onclick="getFreeBoardList(1, $('#keyword').val())">
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</form>
+										</td>
+										<td width="20" align="left"><img src="~/Content/images/pop_sh_right.gif"><br></td>
+									</tr>
+								</tbody>
+							</table>
+	
+	
+	
+							<form name="form" method="post" action="http://www.wtc887.com/notice/DATA_view.asp?submode=DATA_FREE&amp;action=search">
+								<br>
+								<table width="770" border="0" cellspacing="0" cellpadding="0">
+									<tbody>
+										<tr>
+											<td width="5" align="left"><img src="~/Content/images/box_left.gif" width="5" height="26"></td>
+											<td width="50" class="td_C_Stitle">번호</td>
+											<td width="100" class="td_C_Stitle">날짜</td>
+											<td width="350" class="td_C_Stitle">제 목</td>
+											<td width="100" class="td_C_Stitle">작성자</td>
+											<td width="80" class="td_C_Stitle">조회수</td>
+											<td width="50" class="td_C_Stitle">자료</td>
+											<td width="5" align="right"><img src="~/Content/images/box_right.gif" width="5" height="26"></td>
+										</tr>
+	
+									<tbody id="freeBoardList"></tbody>
+									<tbody id="notList"></tbody>
+	
+	
+									<tr>
+										<td></td>
+										<td colspan="6" class="line_gry"></td>
+										<td></td>
+									</tr>
+	
+	
+				</tbody>
+			</table>
+			</form>
+	
+	
+			<br>
+	
+			<table width="770" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td height="30" align="right"></td>
+					</tr>
+				</tbody>
+			</table>
+			<table width="770" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr class="text-right">
+						<td><a style="color:white; font-size:20px; font-weight:700;" href="Write?bbsType=5"><button type="button" class="button blue hide" id="writeBtn">글쓰기</button></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table>
+				<tbody>
+					<tr>
+						<td class="hide" id="setPageNum"></td>
+						<td id="first_page"><img src="~/Content/images/first_btn.gif"></td>
+						<td id="pre_page"><img src="~/Content/images/pre_btn.gif"></td>
+	
+	
+						<td id="pagination"></td>
+	
+	
+						<td id="next_page"><img src="~/Content/images/next_btn.gif"></td>
+						<td id="last_page"><img src="~/Content/images/last_btn.gif"></td>
+					</tr>
+				</tbody>
+			</table>
+	
+	
+	
+	
+			<br>
+			<br>
+			<br>
+		</td>
+					</tr>
+				</tbody>
+			</table>
+		</td>
+
+-->
