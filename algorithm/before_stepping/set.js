@@ -45,4 +45,17 @@ function unionSet(a, b){
 //[...u].sort() -> 정렬.
 
 
+function differenceSet(a, b){
+	var differenceSet = new Set(a);
+	for(var ele of b){
+		differenceSet.delete(ele);
+	}
+	return differenceSet;
+}
+
+//var a = new Set([7,8,9]);
+//var b = new Set([5,7,10]);
+//differenceSet(a,b); -> {8,9}
+
+
 
