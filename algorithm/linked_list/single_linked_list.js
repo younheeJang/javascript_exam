@@ -41,6 +41,7 @@ SingleLinkedList.prototype.remove = function(value){
 				prev.next = currendHead.next;
 				//next뿐 아니라 노드 자체도 설정하여 완벽을 꿈꾼다.
 				prev = currendHead;
+				//cause prev.nex === currentHead
 				currendHead = currendHead.next;
 				break;
 			}
@@ -54,6 +55,19 @@ SingleLinkedList.prototype.remove = function(value){
 		this.size--;
 	}
 }
+
+SingleLinkedList.prototype.find = function(value){
+	var currentHead = this.head;
+	while(currentHead.next){
+		if(currentHead.data === value){
+			return true;
+		}
+		currentHead = currentHead.next;
+	}
+	return false;
+}
+
+
 var s = new SingleLinkedList(); 
 s.insert(11);
 s.insert(111);
