@@ -7,13 +7,12 @@ function HashTable(size){
 
 HashTable.prototype.put = function(k, v){
 	if(this.limit >= this.size) throw 'hash table is full';
-	var hashedIdx = this.hash(k), squareIdx = 1;
+	var hashedIdx = this.hash(k);
 
-	//quadratic probing
+	//linear probing
 	while(this.keys[hashedIdx] != null){
-		hashedIdx += Math.pow(squareIdx, 2);
-		hashedIdx =hashedIdx % this.size;
-		squareIdx++;
+		hashedIdx++;
+		hashedIdx = hashedIdx % this.size;
 	}
 	this.keys[hashedIdx] = k;
 	this.values[hashedIdx] = v;
@@ -21,11 +20,10 @@ HashTable.prototype.put = function(k, v){
 }
 
 HashTable.prototype.get = function(k){
-	var hashedIdx = this.hash(k), squareIdx = 1;
+	var hashedIdx = this.hash(k);
 	while(this.keys[hashedIdx] != k){
-		hashedIdx += Math.pow(squareIdx, 2);
+		hashedIdx++;
 		hashedIdx = hashedIdx % this.size;
-		squareIdx++;
 	}
 	return this.values[hashedIdx];
 }
@@ -42,7 +40,6 @@ HashTable.prototype.initArray = function(size){
 	}
 	return array;
 }
-
 
 var hashT = new HashTable(12);
 hashT.put(7, 'c');
