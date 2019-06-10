@@ -93,3 +93,8 @@ BinarySearchTree.prototype.find = function(value){
 		}
 		return flag;
 }
+
+var bst = new BinarySearchTree();
+bst.insert(1);
+bst.insert(3);
+bst.insert(2);

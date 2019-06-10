@@ -89,11 +89,12 @@ MinHeap.prototype.poll = function(){
 }
 
 var h = new MinHeap();
-h.add(1);
-h.add(20);
+h.add(2);
 h.add(4);
-h.add(200);
-h.add(7);
+h.add(12);
+h.add(13);
+h.add(23);
+console.log(h.items);
 
 function MaxHeap(){
 	this.items = [];
@@ -136,11 +137,17 @@ MaxHeap.prototype.switchUp = function(){
 }
 
 
-var h = new MaxHeap();
-h.add(1);
-h.add(20);
+var h = new MinHeap();
+h.add(2);
 h.add(4);
-h.add(200);
-h.add(7);
+h.add(12);
+h.add(13);
+h.add(23);
 
 console.log(h.poll());
+console.log(h.poll());
+console.log(h.poll());
+console.log(h.poll());
+console.log(h.poll());
+
+//
