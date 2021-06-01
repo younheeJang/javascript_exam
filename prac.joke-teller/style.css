@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #45badd;
+  font-family: Bebas Neue, sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('https://media.giphy.com/media/3oEjI0K9U4NeGxURWg/giphy.gif');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
