@@ -50,6 +50,81 @@ class BinarySearchTree {
     }
     return false;
   }
+
+  remove(value) {
+    if (!this.root) {
+      return false;
+    }
+    let currentNode = this.root;
+    let parentNode = null;
+    while (currentNode) {
+      if (value < currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.left;
+      } else if (value > currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.right;
+      } else if (currentNode.value === value) {
+        //get to work:
+
+        //no right child:
+        if (currentNode.right === null) {
+          if (parentNode === null) {
+            this.root = currentNode.left;
+          } else {
+            if (currentNode.value < parentNode.value) {
+              //if parent>current value, make current left child a left child of parent
+              parentNode.left = currentNode.left;
+            } else if (currentNode.value > parentNode.value) {
+              //if parent<current valeu, make current left child a right child of parent
+              parentNode.right = currentNode.left;
+            }
+          }
+        } else if (currentNode.right.left === null) {
+          //right child does not have left child
+          if (parentNode === null) {
+            this.root = currentNode.left;
+          } else {
+            currentNode.right.left = currentNode.left;
+
+            if (currentNode.value < parentNode.value) {
+              //if parent>current, make right child of the left of parent
+              parentNode.left = currentNode.right;
+            } else if (currentNode.value > parentNode.value) {
+              //if parent<current, make right child of the right of parent
+              parentNode.right = currentNode.right;
+            }
+          }
+        } else {
+          //right child does have left child
+
+          //find the right child's left most child:
+          let leftmost = currentNode.right.left;
+          let leftmostParent = currentNode.right;
+          while (leftmost.left !== null) {
+            leftmostParent = leftmost;
+            leftmost = leftmost.left;
+          }
+
+          //parent's left subtree is now leftmost's right subtree
+          leftmostParent.left = leftmost.right;
+          leftmost.left = currentNode.left;
+          leftmost.right = currentNode.right;
+
+          if (parentNode === null) {
+            this.root = leftmost;
+          } else {
+            if (currentNode.value < parentNode.value) {
+              parentNode.left = leftmost;
+            } else if (currentNode.value > parentNode.value) {
+              parentNode.right = leftmost;
+            }
+          }
+        }
+        return true;
+      }
+    }
+  }
 }
 
 function traverse(node) {
